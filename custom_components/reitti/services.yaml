@@ -1,0 +1,13 @@
+send_location:
+  name: Send Location
+  description: Push custom location payload to Reitti
+  fields:
+    device:
+      description: Device tracker entity
+      example: device_tracker.phone
+    lat:
+      description: Latitude
+      example: 0.000
+    lon:
+      description: Longitude
+      example: 0.000
