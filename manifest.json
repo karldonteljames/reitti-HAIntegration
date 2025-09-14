@@ -1,0 +1,11 @@
+{
+  "domain": "reitti",
+  "name": "Reitti Integration",
+  "version": "0.1.0",
+  "documentation": "https://github.com/karldonteljames/home-assistant/custom-integrations/reitti",
+  "requirements": [],
+  "codeowners": ["@karldonteljames"],
+  "config_flow": true,
+  "iot_class": "cloud_push",
+  "image": "images/reitti.png"
+}
