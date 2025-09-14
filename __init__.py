@@ -114,7 +114,7 @@ async def async_setup_entry(hass: HomeAssistant, entry):
     }
 
     _LOGGER.info(
-        "Reitti integration set up for device %s, pushing every %s seconds (debug=%s)",
+        "Reitti integration '%s' set up for device %s, pushing every %s seconds (debug=%s)",
         entry.options.get("friendly_name", "Reitti Integration"),
         device_entity,
         interval_seconds,
