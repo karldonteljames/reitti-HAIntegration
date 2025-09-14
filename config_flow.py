@@ -1,3 +1,6 @@
+# File: custom_components/reitti/config_flow.py
+# Date: 2025-09-14
+
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.helpers import selector
@@ -16,7 +19,7 @@ class ReittiConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 data={
                     CONF_URL: user_input[CONF_URL],
                     "api_key": user_input["api_key"],
-                    CONF_DEVICE: user_input[CONF_DEVICE],  # ✅ store device here
+                    CONF_DEVICE: user_input[CONF_DEVICE],
                     CONF_PORT: user_input.get(CONF_PORT, 8080),
                 },
                 options={
