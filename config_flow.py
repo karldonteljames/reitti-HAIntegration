@@ -15,7 +15,7 @@ class ReittiConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             return self.async_create_entry(
-                title="Reitti Integration",
+                title=user_input.get("friendly_name", "Reitti Integration"),
                 data={
                     CONF_URL: user_input[CONF_URL],
                     "api_key": user_input["api_key"],
@@ -26,6 +26,7 @@ class ReittiConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     "interval_seconds": user_input.get("interval_seconds", 30),
                     "enable_debug_logging": user_input.get("enable_debug_logging", False),
                     "enable_push": user_input.get("enable_push", True),
+                    "friendly_name": user_input.get("friendly_name", "Reitti Integration"),
                 },
             )
 
@@ -40,6 +41,7 @@ class ReittiConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 vol.Optional("interval_seconds", default=30): int,
                 vol.Optional("enable_debug_logging", default=False): bool,
                 vol.Optional("enable_push", default=True): bool,
+                vol.Optional("friendly_name", default="Reitti Integration"): str,
             }
         )
 
@@ -74,6 +76,11 @@ class ReittiConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     default=self.options.get("enable_debug_logging", False),
                     description="Enable debug logging"
                 ): bool,
+                vol.Required(
+                    "friendly_name",
+                    default=self.options.get("friendly_name", "Reitti Integration"),
+                    description="Custom name for this Reitti instance/device"
+                ): str,
             }
         )
         return self.async_show_form(step_id="options", data_schema=schema)

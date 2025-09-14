@@ -1,3 +1,6 @@
+# File: custom_components/reitti/services.yaml
+# Date: 2025-09-13
+
 send_location:
   name: Send Location
   description: Push custom location payload to Reitti

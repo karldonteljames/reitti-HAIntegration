@@ -81,8 +81,11 @@ async def async_setup_entry(hass: HomeAssistant, entry):
     state_listener = async_track_state_change_event(
         hass,
         device_entity,
-        lambda event: hass.async_create_task(push_location())
+        lambda event: hass.loop.call_soon_threadsafe(
+            lambda: hass.async_create_task(push_location())
+        )
     )
+
 
     # --- Interval listener ---
     interval_seconds = entry.options.get("interval_seconds", 30)
