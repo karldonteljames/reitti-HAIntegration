@@ -7,6 +7,7 @@ class ReittiConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
     async def async_step_user(self, user_input=None):
+        """Initial configuration step for user input."""
         errors = {}
 
         if user_input is not None:
@@ -15,10 +16,10 @@ class ReittiConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 data={
                     CONF_URL: user_input[CONF_URL],
                     "api_key": user_input["api_key"],
+                    CONF_DEVICE: user_input[CONF_DEVICE],  # ✅ store device here
+                    CONF_PORT: user_input.get(CONF_PORT, 8080),
                 },
                 options={
-                    CONF_DEVICE: user_input[CONF_DEVICE],
-                    CONF_PORT: user_input.get(CONF_PORT, 8080),
                     "interval_seconds": user_input.get("interval_seconds", 30),
                     "enable_debug_logging": user_input.get("enable_debug_logging", False),
                     "enable_push": user_input.get("enable_push", True),
@@ -38,6 +39,7 @@ class ReittiConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 vol.Optional("enable_push", default=True): bool,
             }
         )
+
         return self.async_show_form(step_id="user", data_schema=schema, errors=errors)
 
     async def async_step_options(self, user_input=None):
@@ -55,17 +57,17 @@ class ReittiConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     selector.EntitySelectorConfig(domain="device_tracker")
                 ),
                 vol.Required(
-                    "enable_push",
+                    "Enable push updates",
                     default=self.options.get("enable_push", True),
                     description="Enable automatic push updates"
                 ): bool,
                 vol.Required(
-                    "interval_seconds",
+                    "Interval seconds",
                     default=self.options.get("interval_seconds", 30),
                     description="Push interval in seconds"
                 ): int,
                 vol.Required(
-                    "enable_debug_logging",
+                    "Enable debug logging",
                     default=self.options.get("enable_debug_logging", False),
                     description="Enable debug logging"
                 ): bool,
